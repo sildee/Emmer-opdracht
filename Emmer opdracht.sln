@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emmer_opdracht", "Emmer opdracht\Emmer_opdracht.csproj", "{9A3C0AA0-BBE8-41E8-86C2-F9789BA070CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emmer_Opdracht", "Emmer opdracht\Emmer_Opdracht.csproj", "{9A3C0AA0-BBE8-41E8-86C2-F9789BA070CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmmerOpdrachtTests", "EmmerOpdrachtTests\EmmerOpdrachtTests.csproj", "{FD81EAAD-1F85-4D05-903A-603B0CA573B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9A3C0AA0-BBE8-41E8-86C2-F9789BA070CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A3C0AA0-BBE8-41E8-86C2-F9789BA070CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A3C0AA0-BBE8-41E8-86C2-F9789BA070CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD81EAAD-1F85-4D05-903A-603B0CA573B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD81EAAD-1F85-4D05-903A-603B0CA573B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD81EAAD-1F85-4D05-903A-603B0CA573B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD81EAAD-1F85-4D05-903A-603B0CA573B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

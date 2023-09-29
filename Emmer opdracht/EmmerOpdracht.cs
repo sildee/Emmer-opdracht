@@ -17,6 +17,7 @@
         {
             Console.WriteLine($"Input of {InputValue} for {name} is invalid! Input must be at least {MinValue} and at most {MaxValue}");
             Exception ex = new ArgumentOutOfRangeException(nameof(InputValue), "Capacity not possible.");
+            throw (ex);
         }
     }
     public class Container
@@ -71,6 +72,12 @@
         public Bucket(int content, int capacity) : base(capacity)
         {
             Name = "bucket";
+            //check if content is valid
+            if(content < 0 || content > capacity)
+            {
+                ExceptionClass ex = new ExceptionClass(content, 0, capacity);
+                ex.ThrowException("bucket");
+            }
             Content = content;
             // check if capacity is valid
             if (capacity < 10 || capacity > 2500)
@@ -106,6 +113,12 @@
         public RainBarrel(int content, RainBarrelCapacity c) : base((int)c)
         {
             Name = "Rain barrel";
+            if (content < 0)
+            {
+                ExceptionClass ex = new ExceptionClass(content, 0, Convert.ToInt32(c));
+                ex.ThrowException("rain barrel");
+            }
+
             Content = content;
         }
 
@@ -126,13 +139,13 @@
             }
         }
     }
-    internal class Program
+    internal class EmmerOpdracht
     {
         static void Main(string[] args)
         {
             //create list of various objects and showcase all implemented methods.
             //exception handling should be implemented for all of these methods.
-            OilBarrel Oil1 = new OilBarrel(30);
+            OilBarrel Oil1 = new OilBarrel(100);
             RainBarrel Rain1 = new RainBarrel(50, RainBarrel.RainBarrelCapacity.Value100);
             Bucket Bucket1 = new Bucket(15, 15);
             Bucket Bucket2 = new Bucket(5, 35);
