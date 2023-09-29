@@ -1,5 +1,24 @@
 ﻿namespace Emmer_opdracht
 {
+    public class ExceptionClass
+    {
+        int InputValue { get; }
+        int MinValue { get; }
+        int MaxValue { get; }
+        //class to throw expections as requested in requirements.
+        //class is also used to throw exceptions when content of container exceed capacity due to it also being an outofrange exception.
+        //chose for a method rather than including the error message in the class constructor as requested because it's more efficient to only write the error message once.
+        public ExceptionClass(int input, int min, int max) {
+            InputValue = input;
+            MinValue = min;
+            MaxValue = max;
+        }
+        public void ThrowException(string name)
+        {
+            Console.WriteLine($"Input of {InputValue} for {name} is invalid! Input must be at least {MinValue} and at most {MaxValue}");
+            Exception ex = new ArgumentOutOfRangeException(nameof(InputValue), "Capacity not possible.");
+        }
+    }
     public class Container
     {
         // create getter for capacity but not setter to make readonly after constructor
@@ -24,6 +43,12 @@
             {
                 Console.WriteLine($"Removing {value} from contents of {Name}.");
                 Content = Content + value;
+                if(Content < 0)
+                {
+                    ExceptionClass ex = new ExceptionClass(Content, 0, Capacity);
+                    ex.ThrowException("container");
+
+                }
             }
             Console.WriteLine($"Value is now {Content}");
         }
@@ -47,11 +72,11 @@
         {
             Name = "bucket";
             Content = content;
+            // check if capacity is valid
             if (capacity < 10 || capacity > 2500)
             {
-                Exception ex = new ArgumentOutOfRangeException(nameof(capacity), "Capacity not possible.");
-                Console.WriteLine(ex);
-                throw ex;
+                ExceptionClass ex = new ExceptionClass(capacity, 10, 2500);
+                ex.ThrowException("bucket");
             }
         }
         // fill bucket with bucket. t = target bucket to fill, method is called from bucket that will be used to do so.
@@ -59,6 +84,11 @@
         {
             Console.WriteLine($"Filling target bucket that had {t.Content} by {Content}");
             t.Content = t.Content + Content;
+            if(t.Content > t.Capacity)
+            {
+                ExceptionClass ex = new ExceptionClass(t.Content, 0, t.Capacity);
+                ex.ThrowException("bucket");
+            }
             Content = 0;
         }
 
@@ -77,29 +107,35 @@
         {
             Name = "Rain barrel";
             Content = content;
-
         }
 
     }
     public class OilBarrel : Container
     {
-        //always set the value in the parent constructor to be 159 so it cannot be changed.
+        //always set the capacity value in the parent constructor to be 159 so it cannot be changed.
         public OilBarrel(int content) : base(159)
         {
             Name = "Oil barrel";
-            Content = content;
+            if(content >= 0 && content <= 159)
+            {
+                Content = content;
+            } else
+            {
+                ExceptionClass ex = new ExceptionClass(content, 0, 159);
+                ex.ThrowException("oil barrel");
+            }
         }
     }
     internal class Program
     {
         static void Main(string[] args)
         {
-            //create list of various objects and showcase all implemented methods. 
-
-            OilBarrel Oil1 = new OilBarrel(100);
+            //create list of various objects and showcase all implemented methods.
+            //exception handling should be implemented for all of these methods.
+            OilBarrel Oil1 = new OilBarrel(30);
             RainBarrel Rain1 = new RainBarrel(50, RainBarrel.RainBarrelCapacity.Value100);
-            Bucket Bucket1 = new Bucket(10, 150000);
-            Bucket Bucket2 = new Bucket(5, 15);
+            Bucket Bucket1 = new Bucket(15, 15);
+            Bucket Bucket2 = new Bucket(5, 35);
             List<Container> list = new List<Container>();
             list.Add(Oil1);
             list.Add(Rain1);
