@@ -12,24 +12,18 @@ namespace EmmerOpdrachtTests
         {
         }
 
-        [Test]
-        public void BucketCreation_CheckCapacityLimits()
+        [TestCase(1,-5)]
+        [TestCase(-5, -5)]
+        [TestCase(0, -554)]
+        [TestCase(1, 0)]
+        [TestCase(100,10)]
+        public void BucketCreation_CheckLimits(int Content, int Capacity)
         {
-            //Act & Assert
-            //Check negative capacity
-            Assert.That(() => new Bucket(1, -5), Throws.TypeOf<System.ArgumentOutOfRangeException>());
+            Assert.That(() => new Bucket(Content, Capacity), Throws.TypeOf<System.ArgumentOutOfRangeException>());
         }
+        // test that bucket overflow is not permitted
         [Test]
-        public void BucketCreation_CheckContentLimits()
-        {
-            //Act & Assert
-            //Check negative content
-            Assert.That(() => new Bucket(-10, 15), Throws.TypeOf<System.ArgumentOutOfRangeException>());
-            //Check content > capacity (not possible)
-            Assert.That(() => new Bucket(150, 15), Throws.TypeOf<System.ArgumentOutOfRangeException>());
-        }
-        [Test]
-        public void FillingBucketWithBucket_CheckValueLimits()
+        public void FillingBucketWithBucket_CheckLimits()
         {
             //Arrange
             Bucket a = new Bucket(15, 15);
@@ -37,25 +31,23 @@ namespace EmmerOpdrachtTests
             //Act & Assert
             Assert.That(() => a.FillBucketWithBucket(b), Throws.TypeOf<System.ArgumentOutOfRangeException>());
         }
-        [Test]
-        public void OilBarrelCreation_CheckContentLimits()
+        //check content cannot be negative or larger than max capacity
+        [TestCase(-5)]
+        [TestCase(500000)]
+        public void OilBarrelCreation_CheckLimits(int Content)
+        {
+            //Act & Assert
+            Assert.That(() => new OilBarrel(Content), Throws.TypeOf<System.ArgumentOutOfRangeException>());
+        }
+
+        [TestCase(-5, RainBarrel.RainBarrelCapacity.Value80)]
+        [TestCase(-5, RainBarrel.RainBarrelCapacity.Value100)]
+        [TestCase(-5, RainBarrel.RainBarrelCapacity.Value120)]
+        public void RainBarrelCreation_CheckLimits(int Content, RainBarrel.RainBarrelCapacity capacity)
         {
             //Act & Assert
             //Check negative content
-            Assert.That(() => new OilBarrel(-5), Throws.TypeOf<System.ArgumentOutOfRangeException>());
-        }
-        [Test]
-        public void OilBarrel_CheckCapacity()
-        {
-            //Check that capacity is 159
-            Assert.That(() => new OilBarrel(50).Capacity == 159);
-        }
-        [Test]
-        public void RainBarrelCreation_CheckContentLimits()
-        {
-            //Act & Assert
-            //Check negative content
-            Assert.That(() => new RainBarrel(-5, RainBarrel.RainBarrelCapacity.Value80), Throws.TypeOf<System.ArgumentOutOfRangeException>());
+            Assert.That(() => new RainBarrel(Content, RainBarrel.RainBarrelCapacity.Value80), Throws.TypeOf<System.ArgumentOutOfRangeException>());
         }
     }
 }
