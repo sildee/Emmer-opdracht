@@ -18,9 +18,12 @@ namespace Emmer_opdracht
             }
             else
             {
-                ExceptionClass ex = new ExceptionClass(content, 0, 159);
+                var ex = new ExceptionClass(content, 0, 159);
                 ex.ThrowException("oil barrel");
             }
+            //subscribe to events at the bottom of child constructors to prevent events proceeding before exceptions can be handled
+            ContainerFull += ContainerFullAction;
+            ContainerOverflow += ContainerOverflowAction;
         }
     }
 }

@@ -6,18 +6,19 @@
         {
             //create list of various objects and showcase all implemented methods.
             //exception handling should be implemented for all of these methods.
-            OilBarrel Oil1 = new OilBarrel(100);
-            RainBarrel Rain1 = new RainBarrel(50, RainBarrel.RainBarrelCapacity.Value100);
-            Bucket Bucket1 = new Bucket(15, 15);
-            Bucket Bucket2 = new Bucket(5, 35);
+            OilBarrel oil1 = new OilBarrel(100);
+            RainBarrel rain1 = new RainBarrel(50, RainBarrel.RainBarrelCapacity.Value100);
+            Bucket bucket1 = new Bucket(15, 15);
+            Bucket bucket2 = new Bucket(10, 20);
             List<Container> list = new List<Container>();
-            list.Add(Oil1);
-            list.Add(Rain1);
-            list.Add(Bucket1);
-            list.Add(Bucket2);
-            Oil1.ChangeContents(-50);
-            Bucket1.FillBucketWithBucket(Bucket2);
-            Bucket2.EmptyContents();
+            list.Add(oil1);
+            list.Add(rain1);
+            list.Add(bucket1);
+            list.Add(bucket2);
+            oil1.ChangeContents(-50);
+            oil1.ChangeContents(50);
+            bucket1.FillBucketWithBucket(bucket2);
+            rain1.EmptyContents();
             Console.WriteLine();
             //print list of containers.
             foreach(Container container in list)
